@@ -1,6 +1,6 @@
 {
 	"name": "netrc-cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
 	"description": "command line parser for netrc file using netrc-parser by dickyxxx",
 	"main": "index.js",
 	"dependencies": {
