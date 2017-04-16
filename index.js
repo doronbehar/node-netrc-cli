@@ -1,29 +1,55 @@
 #!/usr/bin/env node
 const util = require('util')
-const Netrc = require('netrc-parser')
-
 var argv = require('minimist')(process.argv.slice(2));
-console.log(JSON.stringify(argv, null, 4));
 
-var a_file = argv.file || argv.f;
-var a_machine = argv.machine || argv.m;
+var a_file = argv.file || argv.f || "";
+var a_machine = argv.machine || argv.m || "";
 
-//console.log(file)
+	const USAGE = `Usage: netrc [options] [commands]
+Options:
+  --machine=  -m           specifies the machine to which the command should refer to.
+  --file=     -f           specifies the file to which the cimmand should refer to.
+Commands:
+  get                      Makes the command read print in json the credentials for the specified machine.
+  get login                Makes the command print the login for the specified machine.
+  get password|passwd|pwd  Makes the command print the password for the specified machine.
+  set login                launches a prompt with which you can set your new login string for the specified machine
+  set login=string         sets a new login string for the specified machine
+  set password|passwd|pwd  launches a prompt with which you can set your new password for the specified machine`;
 
-function checkCliArgs() {
+var check = {
+	// Check default ~/.netrc file or argument file for existence.
+	file: function() {
+		var fs = require('fs');
+		if (a_file != "" && fs.existsSync(a_file) == false) {
+			console.error("specified file was not found");
+			process.exit(1);
+		} else if (fs.existsSync("~/.netrc")) {
+			console.error("Default ~/.netrc file was not found");
+			process.exit(1);
+		} else {
+			Netrc = require('netrc-parser')
+			netrc = new Netrc(a_file);
+		}
+	},
+	machine: function() {
+		if (a_machine == "") {
+			console.error("You haven\'t specified a machine to read credentials from, please use \`-m HOST\` or \`--machine=HOST\`");
+			process.exit(3);
+		}
+		for (x in netrc.machines) {
+			if (a_machine == netrc.machines[x].value) {
+				return;
+			}
+		}
+		process.exit(3);
+	}
 }
 
-function checkFileArgs() {
-}
-
-function printHelp() {
-}
-
-function checkMachines() {
-}
+check.file();
+check.machine();
 
 if (argv._[0] == "get") {
-	const netrc = new Netrc(a_file);
 	if (argv._[1] == "password" || argv._[1] == "passwd" || argv._[1] == "pwd") {
 		console.log(netrc.machines[a_machine].password);
 		process.exit(0);
@@ -39,7 +65,6 @@ if (argv._[0] == "get") {
 		process.exit(0);
 	}
 } else if (argv._[0] == "set") {
-	const netrc = new Netrc(a_file);
 	if (argv._[1] == "password" || argv._[1] == "passwd" || argv._[1] == "pwd") {
 		var prompt = require('prompt');
 		prompt.message = "";
@@ -83,6 +108,6 @@ if (argv._[0] == "get") {
 		process.exit(2);
 	}
 } else {
-	printHelp();
+	console.log(USAGE);
 	process.exit(2);
 }
