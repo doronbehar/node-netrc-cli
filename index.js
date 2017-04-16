@@ -26,14 +26,17 @@ if (argv._[0] == "get") {
 	const netrc = new Netrc(a_file);
 	if (argv._[1] == "password" || argv._[1] == "passwd" || argv._[1] == "pwd") {
 		console.log(netrc.machines[a_machine].password);
+		process.exit(0);
 	} else if (argv._[1] == "login") {
 		console.log(netrc.machines[a_machine].login);
+		process.exit(0);
 	} else {
 		var credentials = {
 			login: netrc.machines[a_machine].login,
 			password: netrc.machines[a_machine].password
 		}
 		console.log(JSON.stringify(credentials, null, 4));
+		process.exit(0);
 	}
 } else if (argv._[0] == "set") {
 	const netrc = new Netrc(a_file);
@@ -52,6 +55,7 @@ if (argv._[0] == "get") {
 		prompt.get(schema, function(err, result) {
 			netrc.machines[a_machine].password = result.password;
 			console.log("password for " + a_machine + " machine was set");
+			process.exit(0);
 		})
 	} else if (argv._[1] == "login") {
 		var prompt = require('prompt');
@@ -67,6 +71,7 @@ if (argv._[0] == "get") {
 		prompt.get(schema, function(err, result) {
 			netrc.machines[a_machine].login = result.login;
 			console.log("login for " + a_machine + " machine was set as " + result.login);
+			process.exit(0);
 		})
 	} else if (/login=[a-zA-Z0-9]+$/.test(argv._[1])) {
 		var login2set = argv._[1].replace(/login=/,"");
@@ -79,4 +84,5 @@ if (argv._[0] == "get") {
 	}
 } else {
 	printHelp();
+	process.exit(2);
 }
