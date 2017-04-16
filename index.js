@@ -68,12 +68,14 @@ if (argv._[0] == "get") {
 			netrc.machines[a_machine].login = result.login;
 			console.log("login for " + a_machine + " machine was set as " + result.login);
 		})
+	} else if (/login=[a-zA-Z0-9]+$/.test(argv._[1])) {
+		var login2set = argv._[1].replace(/login=/,"");
+		netrc.machines[a_machine].login = login2set;
+		console.log("login for " + "\'" + a_machine + "\'" + " machine was set as " + "\'" + login2set + "\'");
+		process.exit(0);
 	} else {
-		var credentials = {
-			login: netrc.machines[a_machine].login,
-			password: netrc.machines[a_machine].password
-		}
-		console.log(JSON.stringify(credentials, null, 4));
+		console.log(USAGE);
+		process.exit(2);
 	}
 } else {
 	printHelp();
