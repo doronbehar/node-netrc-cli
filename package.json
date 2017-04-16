@@ -4,7 +4,8 @@
   "description": "command line parser for netrc file using netrc-parser by dickyxxx",
   "main": "index.js",
   "dependencies": {
-    "netrc-parser": "^2.0.1"
+    "netrc-parser": "^2.0.1",
+    "minimist": "^1.2.0"
   },
   "devDependencies": {},
   "scripts": {
