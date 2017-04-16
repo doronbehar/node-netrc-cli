@@ -1,33 +1,33 @@
 {
-  "name": "netrc-cli",
+	"name": "netrc-cli",
   "version": "1.0.2",
-  "description": "command line parser for netrc file using netrc-parser by dickyxxx",
-  "main": "index.js",
-  "dependencies": {
-    "minimist": "^1.2.0",
-    "netrc-parser": "^2.0.1",
-    "prompt": "^1.0.0"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "./index show-all"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/doronbehar/node-netrc-cli.git"
-  },
-  "keywords": [
-    "netrc",
-    "cli",
-    "parse"
-  ],
-  "author": "Doron Behar (@doronbehar)",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/doronbehar/node-netrc-cli/issues"
-  },
-  "homepage": "https://github.com/doronbehar/node-netrc-cli#readme",
-  "bin": {
-    "netrc": "index.js"
-  }
+	"description": "command line parser for netrc file using netrc-parser by dickyxxx",
+	"main": "index.js",
+	"dependencies": {
+		"minimist": "^1.2.0",
+		"netrc-parser": "^2.0.1",
+		"prompt": "^1.0.0"
+	},
+	"devDependencies": {},
+	"scripts": {
+		"test": "./index show-all"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/doronbehar/node-netrc-cli.git"
+	},
+	"keywords": [
+		"netrc",
+		"cli",
+		"parse"
+	],
+	"author": "Doron Behar (@doronbehar)",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/doronbehar/node-netrc-cli/issues"
+	},
+	"homepage": "https://github.com/doronbehar/node-netrc-cli#readme",
+	"bin": {
+		"netrc": "index.js"
+	}
 }
